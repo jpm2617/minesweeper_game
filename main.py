@@ -73,11 +73,6 @@ def checkzeros(s,k,r,c):
 
 
 
-
-    
-
-  
-
 def known_grid(row,col):
   board = [['-' for i in range(row)] for j in range(col)] 
   return board
@@ -90,36 +85,19 @@ def solution_grid(row,col,n_bombs):
   random.shuffle(mines)
   board = [[mines[j+i*col] for i in range(row)] for j in range(col)] 
  
-  ## add padding to the board to avoid dealing with boundary (this is removed after)
-  # top and bottom boundaries
-  board.insert(0,[0]*(row+2))
-  board+=[[0]*(row+2)]
-  
-  #left and right boundaries
-  for i in range(1,row+1):
-   # print(board[0])
-    board[i].insert(0,0)
-    board[i].append(0)
-
-  ## update the number of bombs surrounding each square (ignore padding)
+  ## update the number of bombs surrounding each square 
   neighbours_in=[[i,j] for i in (-1,0,1) for j in (-1,0,1) if not (i == j == 0)]
-  for i in range(1,row+1):
-    for j in range(1,col+1):
-      # inside board
-      if board[i][j] == '*':
-        if i>0 or j>0 or i<row or j<col:
-          for k in neighbours_in:
-            if board[i+k[0]][j+k[1]] != '*':
-              board[i+k[0]][j+k[1]] = board[i+k[0]][j+k[1]] + 1
-
-  ## remove padding from the board
-  #left and right boundaries
-  for i in range(1,row+1):
-    del board[i][0]
-    del board[i][-1]
-  #top and bottom boundaries
-  del board[0], board[-1]
   
+  for i in range(0,row):
+    for j in range(0,col):
+      if board[i][j] == '*':
+        for k in neighbours_in:
+          r_n = i + k[0]
+          c_n = j + k[1]
+          if not (r_n < 0 or c_n < 0  or r_n > row-1 or c_n > col-1):
+            if board[r_n][c_n] != '*':
+              board[r_n][c_n] = board[r_n][c_n] + 1
+
   return board
 
 main()
