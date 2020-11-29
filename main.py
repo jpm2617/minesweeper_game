@@ -1,6 +1,6 @@
 import numpy as np 
 import random
-from termcolor import cprint
+#from termcolor import cprint
 import os
 
 def main():
@@ -19,9 +19,9 @@ def main():
     main()
   elif choise == 'P':
      os.system('clear')
-     n_bombs = 40
-     row = 16
-     col = 16
+     n_bombs = 9
+     row = 6 #16
+     col = 6  #16
      # Solution board
      sol_board = solution_grid(row,col,n_bombs)
      # Interface for gameplay
@@ -161,4 +161,3 @@ def solution_grid(row,col,n_bombs):
   return board
 
 main()
-
